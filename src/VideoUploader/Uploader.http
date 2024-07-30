@@ -1,0 +1,10 @@
+### Upload Video File
+POST http://localhost:5001/api/video/upload
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="jacek.webm"
+Content-Type: video/mp4
+
+< C:/Users/Pablo/Downloads/jacek.webm
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

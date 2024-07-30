@@ -29,7 +29,7 @@ public class EncodingWorker : Microsoft.Extensions.Hosting.BackgroundService
             await _queueClientProcessed.CreateIfNotExistsAsync(cancellationToken: stoppingToken);
             await _containerChunkClient.CreateIfNotExistsAsync(cancellationToken: stoppingToken);
             
-            var response = await _queueClient.PeekMessageAsync(stoppingToken);
+            var response = await _queueClient.ReceiveMessageAsync(cancellationToken: stoppingToken);
             try
             {
 
@@ -82,7 +82,8 @@ public class EncodingWorker : Microsoft.Extensions.Hosting.BackgroundService
             }
             finally
             {
-                await _queueClient.DeleteMessageAsync(response.Value.MessageId, "OK", stoppingToken);
+                await _queueClient.DeleteMessageAsync(response.Value.MessageId, response.Value.PopReceipt, stoppingToken);
+
             }
         }
     }
